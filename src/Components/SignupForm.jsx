@@ -5,7 +5,7 @@ import{ addDoc } from "firebase/firestore";
 import{ collection } from "firebase/firestore";
 
 
-const SignUpForm = ({setUser}) => {
+const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
@@ -16,8 +16,17 @@ const SignUpForm = ({setUser}) => {
     try {
       //authenticate new user
       const res = await createUserWithEmailAndPassword(auth, email, password);
+
+      const user = res.user;
+
+      //create new user in db
+      await addDoc(collection(db,"Users"), {
+        uid: user.uid,
+        authProvider: "local",
+        email,
+      });
       
-      console.log("Successful authentication");
+      console.log("Successful authentication & object build");
     } catch (err) {
 
       console.error(err);
@@ -28,20 +37,24 @@ const SignUpForm = ({setUser}) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Email:
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-      </label>
-      <br />
-      <label>
-        Password:
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      </label>
-      <br />
-      {error && <p>{error.message}</p>}
-      <button type="submit">Submit</button>
-    </form>
+    <div style={{ backgroundColor: 'lightblue', display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh' }}>
+  <h1 style={{ marginTop: '30px' }}>City Log</h1>
+  <form onSubmit={handleSubmit} style={{ marginTop: '30px', width: '50%' }}>
+    <label>
+      Email:
+      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} style={{ marginLeft: '10px', padding: '10px', borderRadius: '20px' }} />
+    </label>
+    <br />
+    <label>
+      Password:
+      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} style={{ marginLeft: '10px', padding: '10px', borderRadius: '20px' }} />
+    </label>
+    <br />
+    {error && <p>{error.message}</p>}
+    <button type="submit" style={{ marginTop: '20px', padding: '10px', borderRadius: '20px', backgroundColor: 'blue' , color: 'white'}}>Signup</button>
+  </form>
+</div>
+
   );
 };
 
