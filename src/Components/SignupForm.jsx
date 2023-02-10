@@ -9,6 +9,7 @@ const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,6 +27,7 @@ const SignUpForm = () => {
         email,
       });
       
+      setSuccess(true);
       console.log("Successful authentication & object build");
     } catch (err) {
 
@@ -38,6 +40,7 @@ const SignUpForm = () => {
 
   return (
     <div style={{ backgroundColor: 'lightblue', display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100vh' }}>
+    {success && <p style={{ color: 'green', marginTop: '20px' }}>Authentication Successful!</p>}
   <h1 style={{ marginTop: '30px' }}>City Log</h1>
   <form onSubmit={handleSubmit} style={{ marginTop: '30px', width: '50%' }}>
     <label>
