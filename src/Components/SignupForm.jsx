@@ -3,6 +3,7 @@ import firebase, { auth, db } from '../firebase';
 import {  createUserWithEmailAndPassword  } from 'firebase/auth';
 import{ addDoc } from "firebase/firestore";
 import{ collection } from "firebase/firestore";
+import {useNavigate} from "react-router-dom";
 
 
 const SignUpForm = () => {
@@ -10,6 +11,7 @@ const SignUpForm = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,8 +28,10 @@ const SignUpForm = () => {
         authProvider: "local",
         email,
       });
-      
+      //show successful authentication
       setSuccess(true);
+      //once user has been added navigate to neighborhood screen
+      navigate("/neighborhood");
       console.log("Successful authentication & object build");
     } catch (err) {
 
