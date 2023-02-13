@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Nav from './Components/Nav';
 import SignupForm from "./Components/SignupForm";
 import { Route, Routes } from "react-router-dom";
-import Neighborhood from "./Components/Neighborhood";
+import City from "./Components/City";
 
 function App() {
   
@@ -10,7 +10,7 @@ function App() {
     <>
     <Routes>
       <Route path="/" element={<SignupForm/>} />
-      <Route path="/neighborhood" element={<Neighborhood/>} />
+      <Route path="/city" element={<City/>} />
     </Routes>
     </>
 

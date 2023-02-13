@@ -31,7 +31,7 @@ const SignUpForm = () => {
       //show successful authentication
       setSuccess(true);
       //once user has been added navigate to neighborhood screen
-      navigate("/neighborhood");
+      navigate("/city");
       console.log("Successful authentication & object build");
     } catch (err) {
 
